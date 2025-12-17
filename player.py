@@ -1,9 +1,6 @@
 import pygame
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS
-from constants import LINE_WIDTH
-from constants import PLAYER_SPEED
-from constants import PLAYER_TURN_SPEED
+from constants import *
 
 # Base class for player
 class Player(CircleShape):
@@ -43,5 +40,5 @@ class Player(CircleShape):
         self.position += rotated_with_speed_vector
 
     def draw(self, screen):
-        color = (255, 255, 255)
+        color = WHITE
         pygame.draw.polygon(screen, color, self.triangle(), LINE_WIDTH)
