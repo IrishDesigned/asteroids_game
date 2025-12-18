@@ -8,6 +8,7 @@ class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y,PLAYER_RADIUS)
         self.rotation = 0
+        self.shot_cooldown_timer = 0
 
     # in the Player class
     def triangle(self):
@@ -29,7 +30,7 @@ class Player(CircleShape):
         if keys[pygame.K_d]:
             self.rotate(dt)
         if keys[pygame.K_SPACE]:
-            self.shoot()
+            self.shoot(dt)
 
     def rotate(self, dt):
         # change self.rotation based on PLAYER_TURN_SPEED and dt
@@ -46,6 +47,10 @@ class Player(CircleShape):
         color = WHITE
         pygame.draw.polygon(screen, color, self.triangle(), LINE_WIDTH)
 
-    def shoot(self):
-        bullet = Shot(self.position.x, self.position.y)
-        bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+    def shoot(self, dt):
+        if (0 == self.shot_cooldown_timer):
+            self.shot_cooldown_timer = PLAYER_SHOOT_COOLDOWN_TIMER
+            bullet = Shot(self.position.x, self.position.y)
+            bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+        elif (0 < self.shot_cooldown_timer <=PLAYER_SHOOT_COOLDOWN_TIMER):
+            self.shot_cooldown_timer -= dt
