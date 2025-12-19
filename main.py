@@ -35,12 +35,15 @@ def main():
                 return
 
         updatable.update(dt)
-        print(f"Number of shots in group: {len(shots)}") # Add this line
+        # print("Asteroids:", len(asteroids)) # debug
+        # print(f"Number of shots in group: {len(shots)}") # debug
         log_state()
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 log_event("player_hit")
+                print("ASTEROID COLLISION DETECTED", asteroid.position, asteroid.radius)
+                print("PLAYER POS/RADIUS", player.position, player.radius)
                 print("Game over!")
                 sys.exit()
 
