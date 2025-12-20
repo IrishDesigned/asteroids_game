@@ -46,6 +46,13 @@ def main():
                 print("PLAYER POS/RADIUS", player.position, player.radius)
                 print("Game over!")
                 sys.exit()
+        
+        for shot in shots:
+            for asteroid in asteroids:
+                if shot.collides_with(asteroid):
+                    log_event("asteroid_shot")
+                    shot.kill()
+                    asteroid.split()
 
         screen.fill("black")
 
